@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- build:css styles/popup-vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css styles/main.css -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="styles/amazeui.min.css" rel="stylesheet">
+    <!-- endbuild -->
+  </head>
+  <body>
+    <div id="app" class="am-vertical-align" style="width:300px; height:300px">
+      <div v-if="status == 'scan'" class="am-container am-vertical-align-middle">
+        <img :src="qr64" class="am-u-sm-centered"/>
+      </div>
+      <div v-if="status == 'login'" class="am-container am-vertical-align-middle">
+        <p class="am-text-lg am-text-center">请在手机上登录</p>
+      </div>
+      <div v-if="status == 'list'" class="am-container am-vertical-align-middle">
+        <button @click.prevent="logout()" class="am-btn am-btn-default am-radius am-btn-block am-btn-danger">退出</button>
+        <ul class="am-list">
+          <li v-for="member in members" class="am-cf">
+            <span v-text="member.remarkname ? member.remarkname : member.nickname"></span>
+            <button @click.prevent="addMember(member.username, $event)" class="am-btn am-btn-primary am-radius am-btn-sm am-fr">开启</button>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- build:js scripts/popup-vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/popup.js"></script>
+    <script src="scripts/amazeui.min.js"></script>
+    <!-- build:js scripts/popup.js -->
+    <!-- endbuild -->
+  </body>
+</html>
