@@ -42,6 +42,16 @@ module.exports = {
     }]
   },
   //watch: true,
+  externals: {
+    'jquery': 'jQuery'
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      "window.jQuery": "jquery"
+    })
+  ],
   node: {
     console: true,
     fs: 'empty',

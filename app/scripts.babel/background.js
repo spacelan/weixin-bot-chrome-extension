@@ -5,9 +5,36 @@ import wechat from 'wechat_bot/wechat.js';
 window.bot = null;
 window.isLogin = false;
 
+let bot = null;
+window.getBot = () => {
+  if (!bot) {
+    bot = new wechat();
+    bot['$members'] = null;
+    bot['$getMembers'] = () => {
+      if (!bot.$members)
+        bot.$members = bot.getMemberList().map(member => {
+          member['isAdded'] = false;
+          return member;
+        });
+      return bot.$members;
+    };
+    bot['$isLogin'] = false;
+    bot['$logout'] = () => {
+      return bot.getUUID()
+        .then(uuid => {
+          return null;
+        })
+        .catch(err => {
+          console.logo(err);
+        });
+    }
+  }
+  return bot;
+}
+
 window.newInstance = () => {
   //if (window.bot)
-    delete window.bot;
+  delete window.bot;
   window.bot = new wechat();
   return window.bot.getUUID();
 }

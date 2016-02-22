@@ -13,18 +13,21 @@
   </head>
   <body>
     <div id="app" class="am-vertical-align" style="width:300px; height:300px">
-      <div v-if="status == 'scan'" class="am-container am-vertical-align-middle">
-        <img :src="qr64" class="am-u-sm-centered"/>
+      <div v-show="status == 'scan'" class="am-container am-vertical-align-middle">
+        <div v-el:qr class="am-u-sm-centered"></div>
       </div>
-      <div v-if="status == 'login'" class="am-container am-vertical-align-middle">
+      <div v-show="status == 'login'" class="am-container am-vertical-align-middle">
         <p class="am-text-lg am-text-center">请在手机上登录</p>
       </div>
-      <div v-if="status == 'list'" class="am-container am-vertical-align-middle">
+      <div v-show="status == 'timeout'" class="am-container am-vertical-align-middle">
+        <p class="am-text-lg am-text-center">二维码过期,重新获取...</p>
+      </div>
+      <div v-show="status == 'list'" class="am-container am-vertical-align-middle">
         <button @click.prevent="logout()" class="am-btn am-btn-default am-radius am-btn-block am-btn-danger">退出</button>
         <ul class="am-list">
           <li v-for="member in members" class="am-cf">
             <span v-text="member.remarkname ? member.remarkname : member.nickname"></span>
-            <button @click.prevent="addMember(member.username, $event)" class="am-btn am-btn-primary am-radius am-btn-sm am-fr">开启</button>
+            <button @click.prevent="addMember($index, $event)" class="am-btn am-radius am-btn-sm am-fr" v-bind:class="[member.isAdded ? 'am-btn-danger' : 'am-btn-primary']" v-text="member.isAdded ? '关闭' : '开启'"></button>
           </li>
         </ul>
       </div>

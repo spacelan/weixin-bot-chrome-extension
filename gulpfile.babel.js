@@ -108,10 +108,12 @@ gulp.task('chromeManifest', () => {
 //      }))
 //      .pipe(gulp.dest('app/scripts'));
 //});
-
+let webpackWatch = true;
 gulp.task('webpack', () => {
   let src = 'app/scripts.babel/**/*.js';
   let dest = 'app/scripts';
+  let config = require('./webpack.config.js');
+  config.watch = webpackWatch;
   gulp.src(src)
     .pipe($.plumber())
     .pipe(webpack(require('./webpack.config.js')))
@@ -131,7 +133,8 @@ gulp.task('watch', ['lint', 'webpack', 'html'], () => {
     'app/_locales/**/*.json'
   ]).on('change', $.livereload.reload);
 
-  gulp.watch('app/scripts.babel/**/*.js', ['lint', 'webpack']);
+  webpackWatch = true;
+  //gulp.watch('app/scripts.babel/**/*.js', ['lint', 'webpack']);
   gulp.watch('bower.json', ['wiredep']);
 });
 
