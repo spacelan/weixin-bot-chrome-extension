@@ -54,10 +54,9 @@
     "jquery": "^2.2.0",
     "json-loader": "^0.5.4",
     "path": "^0.12.7",
-    "qr-image": "^3.1.0",
     "style-loader": "^0.13.0",
-    "vue": "^1.0.16-csp",
+    "vue": "^1.0.20-csp",
     "webpack": "^1.12.13",
-    "wechat_bot": "git+https://github.com/stonexer/wechatBot.git"
+    "wechat4u": "^0.2.5"
   }
 }

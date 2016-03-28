@@ -101,13 +101,6 @@ gulp.task('chromeManifest', () => {
     .pipe(gulp.dest('dist'));
 });
 
-//gulp.task('webpack', () => {
-//  return gulp.src('app/scripts.babel/**/*.js')
-//      .pipe($.babel({
-//        presets: ['es2015']
-//      }))
-//      .pipe(gulp.dest('app/scripts'));
-//});
 let webpackWatch = true;
 gulp.task('webpack', () => {
   let src = 'app/scripts.babel/**/*.js';
@@ -116,7 +109,7 @@ gulp.task('webpack', () => {
   config.watch = webpackWatch;
   gulp.src(src)
     .pipe($.plumber())
-    .pipe(webpack(require('./webpack.config.js')))
+    .pipe(webpack(config))
     .pipe(gulp.dest(dest));
 });
 
@@ -134,7 +127,7 @@ gulp.task('watch', ['lint', 'webpack', 'html'], () => {
   ]).on('change', $.livereload.reload);
 
   webpackWatch = true;
-  //gulp.watch('app/scripts.babel/**/*.js', ['lint', 'webpack']);
+  gulp.watch('app/scripts.babel/**/*.js', ['lint']);
   gulp.watch('bower.json', ['wiredep']);
 });
 
