@@ -2,44 +2,43 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <!-- build:css styles/popup-vendor.css -->
-    <!-- bower:css -->
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css styles/main.css -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <link href="styles/amazeui.min.css" rel="stylesheet">
-    <!-- endbuild -->
   </head>
-  <body>
-    <div id="app" class="am-vertical-align" style="width:300px; height:300px">
-      <div v-show="status == 'scan'" class="am-container am-vertical-align-middle">
-        <div v-el:qr class="am-u-sm-centered"></div>
+  <body style="width: 300px;height: 500px;overflow: scroll;">
+    <div id="app" class="am-container am-padding-horizontal-0">
+      <div v-show="page == 'scan' || page == 'confirm'" class="am-u-sm-centered">
+        <h1 class="am-text-xxxl am-text-center am-margin-vertical">微信机器人</h1>
+        <div v-el:qr class="am-u-sm-centered am-margin-vertical"></div>
       </div>
-      <div v-show="status == 'login'" class="am-container am-vertical-align-middle">
-        <p class="am-text-lg am-text-center">请在手机上登录</p>
+      <div v-show="page == 'confirm'" class="am-u-sm-centered">
+        <p class="am-text-lg am-text-center am-margin-vertical">请在手机上确认登录</p>
       </div>
-      <div v-show="status == 'timeout'" class="am-container am-vertical-align-middle">
-        <p class="am-text-lg am-text-center">二维码过期,重新获取...</p>
+      <div v-show="page == 'restart'" class="am-u-sm-centered">
+        <p class="am-text-lg am-text-center am-margin-vertical am-text-bottom">出错啦,马上重新登录...</p>
       </div>
-      <div v-show="status == 'list'" class="am-container am-vertical-align-middle">
-        <button @click.prevent="logout()" class="am-btn am-btn-default am-radius am-btn-block am-btn-danger">退出</button>
-        <ul class="am-list">
-          <li v-for="member in members" class="am-cf">
-            <span v-text="member.remarkname ? member.remarkname : member.nickname"></span>
-            <button @click.prevent="addMember($index, $event)" class="am-btn am-radius am-btn-sm am-fr" v-bind:class="[member.isAdded ? 'am-btn-danger' : 'am-btn-primary']" v-text="member.isAdded ? '关闭' : '开启'"></button>
+      <div v-show="page == 'list'" class="am-u-sm-centered">
+        <div data-am-sticky>
+          <button @click.prevent="logout()" class="am-btn am-radius am-btn-block am-btn-danger am-btn-sm">退出</button>
+          <input type="text" v-model="filerName" class="am-form-field am-radius am-input-sm" placeholder="搜索联系人">
+        </div>
+        <ul class="am-list" v-el:list>
+          <li v-for="member in members | filterBy filerName in 'nickname'" class="am-g">
+            <div class="am-u-sm-7">
+              <div v-text="member.nickname" class="am-text-truncate" style="width: 150px;"></div>
+            </div>
+            <div class="am-u-sm-5">
+              <select uid="{{member.username}}" multiple>
+                <option value="reply" selected="{{member.reply}}">回复</option>
+                <option value="supervise" selected="{{member.supervise}}">监督</option>
+              </select>
+            </div>
           </li>
         </ul>
       </div>
     </div>
-    <!-- build:js scripts/popup-vendor.js -->
-    <!-- bower:js -->
-    <!-- endbower -->
-    <!-- endbuild -->
     <script src="scripts/jquery.min.js"></script>
-    <script src="scripts/popup.js"></script>
+    <script src="scripts.build/popup.js"></script>
     <script src="scripts/amazeui.min.js"></script>
-    <!-- build:js scripts/popup.js -->
-    <!-- endbuild -->
   </body>
 </html>

@@ -1,63 +1,61 @@
 {
-  "name": "wechat-bot",
-  "private": true,
-  "engines": {
-    "node": ">=0.8.0"
+  "name": "weixin-bot-chrome-extension",
+  "description": "weixin-bot-chrome-extension",
+  "author": "spacelan1993@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "lint": "eslint app/scripts.babel/",
+    "build": "cross-env NODE_ENV=production webpack",
+    "watch": "webpack"
   },
-  "devDependencies": {
+  "dependencies": {
     "babel-core": "^6.0.0",
-    "babel-eslint": "^5.0.0",
+    "babel-loader": "^6.2.3",
+    "babel-polyfill": "^6.7.4",
     "babel-preset-es2015": "^6.1.2",
-    "del": "^1.1.1",
-    "gulp": "^3.9.0",
-    "gulp-babel": "^6.1.0",
-    "gulp-cache": "^0.2.8",
-    "gulp-chrome-manifest": "0.0.13",
-    "gulp-cssnano": "^2.1.1",
-    "gulp-eslint": "^2.0.0",
-    "gulp-htmlmin": "^1.3.0",
-    "gulp-if": "^1.2.5",
-    "gulp-imagemin": "^2.2.1",
-    "gulp-livereload": "^3.8.1",
-    "gulp-load-plugins": "^0.10.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-size": "^1.2.1",
-    "gulp-sourcemaps": "^1.5.0",
-    "gulp-uglify": "^1.1.0",
-    "gulp-useref": "^1.1.1",
-    "gulp-zip": "^3.0.2",
-    "main-bower-files": "^2.5.0",
-    "run-sequence": "^1.1.4",
-    "webpack-stream": "^3.1.0",
-    "wiredep": "^2.2.2"
+    "cross-env": "^1.0.7",
+    "css-loader": "^0.23.1",
+    "json-loader": "^0.5.4",
+    "path": "^0.12.7",
+    "style-loader": "^0.13.0",
+    "vue": "^1.0.20",
+    "webpack": "^1.12.13",
+    "wechat4u": "^0.2.5",
+    "babel-eslint": "^5.0.1",
+    "eslint": "^2.5.3",
+    "estraverse-fb": "^1.3.1"
   },
   "eslintConfig": {
     "env": {
-      "node": true,
-      "browser": true
+      "browser": true,
+      "commonjs": true,
+      "es6": true
     },
-    "globals": {
-      "chrome": true
+    "extends": "eslint:recommended",
+    "parserOptions": {
+      "sourceType": "module"
     },
     "rules": {
-      "eol-last": 0,
       "quotes": [
-        2,
+        "warn",
         "single"
-      ]
-    }
+      ],
+      "semi": [
+        "warn",
+        "always"
+      ],
+      "strict": "off",
+      "no-console": "off"
+    },
+    "globals": {
+      "chrome": true,
+      "$": true
+    },
+    "parser": "babel-eslint"
   },
-  "dependencies": {
-    "amazeui": "^2.5.2",
-    "babel-loader": "^6.2.3",
-    "css-loader": "^0.23.1",
-    "jquery": "^2.2.0",
-    "json-loader": "^0.5.4",
-    "path": "^0.12.7",
-    "qr-image": "^3.1.0",
-    "style-loader": "^0.13.0",
-    "vue": "^1.0.16-csp",
-    "webpack": "^1.12.13",
-    "wechat_bot": "git+https://github.com/stonexer/wechatBot.git"
+  "babel": {
+    "presets": [
+      "es2015"
+    ]
   }
 }

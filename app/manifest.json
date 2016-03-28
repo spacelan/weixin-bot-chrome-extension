@@ -1,36 +1,34 @@
 {
-  "name": "__MSG_appName__",
-  "version": "0.0.1",
+  "name": "wechat-bot-chrome-extension",
+  "version": "0.1.0",
   "manifest_version": 2,
-  "description": "__MSG_appDescription__",
+  "description": "wechat-bot-chrome-extension",
   "icons": {
-    "16": "images/icon-16.png",
-    "128": "images/icon-128.png"
+    "16": "images/wechat4u-16.png",
+    "128": "images/wechat4u-128.png"
   },
   "default_locale": "en",
   "background": {
     "scripts": [
-      "scripts/background.js"
+      "scripts.build/background.js"
     ]
   },
   "permissions": [
     "http://*/*",
     "https://*/*",
     "background",
-    "notifications",
-    "tabs",
-    "webRequest",
-    "*://*.google.com/"
+    "notifications"
   ],
   "browser_action": {
     "default_icon": {
-      "19": "images/icon-19.png",
-      "38": "images/icon-38.png"
+      "19": "images/wechat4u-16.png",
+      "38": "images/wechat4u-32.png"
     },
     "default_title": "wechat bot",
     "default_popup": "popup.html"
   },
   "web_accessible_resources": [
-    "images/icon-48.png"
-  ]
+    "images/wechat4u-48.png"
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

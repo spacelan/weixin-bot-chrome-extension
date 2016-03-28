@@ -3,12 +3,12 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    background: path.resolve(__dirname, 'app', 'scripts.babel', 'background.js'),
-    popup: path.resolve(__dirname, 'app', 'scripts.babel', 'popup.js')
+    background: path.resolve(__dirname, 'scripts.babel', 'background.js'),
+    popup: path.resolve(__dirname, 'scripts.babel', 'popup.js')
   },
   output: {
-    path: path.resolve(__dirname, 'app', 'scripts'),
-    publicPath: '/scripts',
+    path: path.resolve(__dirname, 'app', 'scripts.build'),
+    publicPath: '/scripts.build',
     filename: '[name].js',
   },
   resolveLoader: {
@@ -41,7 +41,7 @@ module.exports = {
       loader: 'style!css'
     }]
   },
-  //watch: true,
+  watch: true,
   externals: {
     'jquery': 'jQuery'
   },
@@ -58,7 +58,7 @@ module.exports = {
     net: 'empty',
     tls: 'empty'
   },
-  devtool: 'source-map'
+  devtool: 'cheap-module-source-map'
 };
 
 if (process.env.NODE_ENV === 'production') {
