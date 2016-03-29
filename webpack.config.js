@@ -41,7 +41,7 @@ module.exports = {
       loader: 'style!css'
     }]
   },
-  //watch: true,
+  watch: true,
   externals: {
     'jquery': 'jQuery'
   },
@@ -58,7 +58,7 @@ module.exports = {
     net: 'empty',
     tls: 'empty'
   },
-  devtool: 'source-map'
+  devtool: 'cheap-module-source-map'
 };
 
 if (process.env.NODE_ENV === 'production') {

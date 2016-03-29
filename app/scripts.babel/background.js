@@ -4,13 +4,13 @@ import wxbot from './wxbot';
 
 let bot = null;
 window.getBot = () => {
-  if (!bot)
-    bot = new wxbot()
-  return bot;
-}
+	if (!bot)
+		bot = new wxbot();
+	return bot;
+};
 window.deleteBot = () => {
-  bot = null;
-}
+	bot = null;
+};
 window.getWxState = () => {
-  return wxbot.STATE;
-}
+	return wxbot.STATE;
+};

@@ -18,7 +18,7 @@ window.$vm = new Vue({
               .qrcode({
                 text: `https://login.weixin.qq.com/l/${uuid}`,
                 width: 200,
-                height: 200,
+                height: 200
               })
               .find('canvas:first')
               .addClass('am-center');
@@ -36,15 +36,15 @@ window.$vm = new Vue({
       logout() {
         this.bot.logout()
           .then(() => {
-            return this.bgp.deleteBot()
+            return this.bgp.deleteBot();
           })
           .then(() => {
-            this.login()
+            this.login();
           })
           .catch(err => {
-            console.log(err)
-            this.bgp.deleteBot()
-          })
+            console.log(err);
+            this.bgp.deleteBot();
+          });
       },
       showMemberList() {
         this.members = this.bot.replyUsersList;
@@ -53,20 +53,20 @@ window.$vm = new Vue({
       },
       switchReply(uid) {
         if (this.bot.replyUsers.has(uid)) {
-          this.bot.replyUsers.delete(uid)
-          console.log('删除自动回复用户', uid)
+          this.bot.replyUsers.delete(uid);
+          console.log('删除自动回复用户', uid);
         } else {
-          this.bot.replyUsers.add(uid)
-          console.log('增加自动回复用户', uid)
+          this.bot.replyUsers.add(uid);
+          console.log('增加自动回复用户', uid);
         }
       },
       switchSupervise(uid) {
         if (this.bot.superviseUsers.has(uid)) {
-          this.bot.superviseUsers.delete(uid)
-          console.log('删除监督用户', uid)
+          this.bot.superviseUsers.delete(uid);
+          console.log('删除监督用户', uid);
         } else {
-          this.bot.superviseUsers.add(uid)
-          console.log('增加监督用户', uid)
+          this.bot.superviseUsers.add(uid);
+          console.log('增加监督用户', uid);
         }
       }
   },
@@ -88,7 +88,7 @@ window.$vm = new Vue({
       this.login();
     });
     this.bot.on('error', err => {
-      console.log(err)
+      console.log(err);
     });
   },
   created() {
