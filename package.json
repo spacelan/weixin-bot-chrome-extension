@@ -9,18 +9,18 @@
     "amazeui": "^2.5.2",
     "babel-core": "^6.0.0",
     "babel-loader": "^6.2.3",
+    "babel-polyfill": "^6.7.4",
     "babel-preset-es2015": "^6.1.2",
     "cross-env": "^1.0.7",
     "css-loader": "^0.23.1",
     "jquery": "^2.2.0",
     "json-loader": "^0.5.4",
+    "lodash": "^4.6.1",
     "path": "^0.12.7",
     "style-loader": "^0.13.0",
-    "vue": "^1.0.20-csp",
+    "vue": "^1.0.20",
     "webpack": "^1.12.13",
-    "wechat4u": "^0.2.5"
-  },
-  "devDependencies": {
+    "wechat4u": "^0.2.5",
     "babel-eslint": "^5.0.1",
     "eslint": "^2.5.3",
     "estraverse-fb": "^1.3.1"

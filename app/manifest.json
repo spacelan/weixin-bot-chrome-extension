@@ -1,8 +1,8 @@
 {
-  "name": "weixin-bot-chrome-extension",
+  "name": "wechat-bot-chrome-extension",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "weixin-bot-chrome-extension",
+  "description": "wechat-bot-chrome-extension",
   "icons": {
     "16": "images/wechat4u-16.png",
     "128": "images/wechat4u-128.png"
@@ -24,10 +24,11 @@
       "16": "images/wechat4u-16.png",
       "32": "images/wechat4u-32.png"
     },
-    "default_title": "weixin bot",
+    "default_title": "wechat bot",
     "default_popup": "popup.html"
   },
   "web_accessible_resources": [
     "images/wechat4u-48.png"
-  ]
+  ],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }

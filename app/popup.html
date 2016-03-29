@@ -2,26 +2,35 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <link href="styles/amazeui.min.css" rel="stylesheet">
+    <link href="styles/amazeui.switch.css" rel="stylesheet">
   </head>
-  <body>
-    <div id="app" class="am-vertical-align" style="width:300px; height:300px">
-      <div v-show="page == 'scan'" class="am-container am-vertical-align-middle">
-        <div v-el:qr class="am-u-sm-centered"></div>
+  <body style="width: 300px;height: 500px;">
+    <div id="app" class="am-container am-padding-horizontal-0">
+      <div v-show="page == 'scan' || page == 'confirm'" class="am-u-sm-centered">
+        <h1 class="am-text-xxxl am-text-center am-margin-vertical">Wechat Bot</h1>
+        <div v-el:qr class="am-u-sm-centered am-margin-vertical"></div>
       </div>
-      <div v-show="page == 'confirm'" class="am-container am-vertical-align-middle">
-        <p class="am-text-lg am-text-center">请在手机上登录</p>
+      <div v-show="page == 'confirm'" class="am-u-sm-centered">
+        <p class="am-text-lg am-text-center am-margin-vertical">请在手机上确认登录</p>
       </div>
-      <div v-show="page == 'restart'" class="am-container am-vertical-align-middle">
-        <p class="am-text-lg am-text-center">出错啦,马上重新登录...</p>
+      <div v-show="page == 'restart'" class="am-u-sm-centered">
+        <p class="am-text-lg am-text-center am-margin-vertical am-text-bottom">出错啦,马上重新登录...</p>
       </div>
-      <div v-show="page == 'list'" class="am-container am-vertical-align-middle">
-        <button @click.prevent="logout()" class="am-btn am-btn-default am-radius am-btn-block am-btn-danger">退出</button>
-        <ul class="am-list">
-          <li v-for="member in members" class="am-cf">
-            <span v-text="member.nickname"></span>
-            <button @click.prevent="switchReply(member.username)" class="am-btn am-radius am-btn-sm am-fr"></button>
+      <div v-show="page == 'list'" class="am-u-sm-centered">
+        <div data-am-sticky>
+          <button @click.prevent="logout()" class="am-btn am-radius am-btn-block am-btn-danger am-btn-sm">退出</button>
+          <input type="text" v-model="filerName" class="am-form-field am-radius am-input-sm" placeholder="搜索联系人">
+        </div>
+        <ul class="am-list" v-el:list>
+          <li v-for="member in members | filterBy filerName in 'nickname'" class="am-cf">
+            <div class="am-fl">
+              <div v-text="member.nickname" class="am-text-truncate" style="width: 150px;"></div>
+            </div>
+            <div class="am-fr">
+              <input type="checkbox" checked="{{member.switch}}" uid="{{member.username}}" data-size="xs">
+            </div>
           </li>
         </ul>
       </div>
@@ -29,5 +38,6 @@
     <script src="scripts/jquery.min.js"></script>
     <script src="scripts/popup.js"></script>
     <script src="scripts/amazeui.min.js"></script>
+    <script src="scripts/amazeui.switch.min.js"></script>
   </body>
 </html>

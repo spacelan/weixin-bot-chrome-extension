@@ -3,8 +3,8 @@ var webpack = require('webpack')
 
 module.exports = {
   entry: {
-    background: path.resolve(__dirname, 'app', 'scripts.babel', 'background.js'),
-    popup: path.resolve(__dirname, 'app', 'scripts.babel', 'popup.js')
+    background: path.resolve(__dirname, 'scripts.babel', 'background.js'),
+    popup: path.resolve(__dirname, 'scripts.babel', 'popup.js')
   },
   output: {
     path: path.resolve(__dirname, 'app', 'scripts'),
