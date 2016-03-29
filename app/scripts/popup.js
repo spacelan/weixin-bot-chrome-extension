@@ -48,7 +48,7 @@
 
 	__webpack_require__(8);
 
-	var _vue = __webpack_require__(252);
+	var _vue = __webpack_require__(251);
 
 	var _vue2 = _interopRequireDefault(_vue);
 
@@ -102,6 +102,7 @@
 	    logout: function logout() {
 	      var _this2 = this;
 
+	      console.log('logout');
 	      var bot = this.bgp.getBot();
 	      bot.logout().then(function () {
 	        _this2.login();
@@ -116,40 +117,51 @@
 	    showMemberList: function showMemberList() {
 	      this.page = 'list';
 	      var bot = this.bgp.getBot();
-	      this.members = bot.superviseUsersList;
+	      this.members = bot.getUsersList();
 	    },
-	    switchReply: function switchReply(uid) {
+	    switchUser: function switchUser(uid, val) {
 	      var bot = this.bgp.getBot();
-	      if (bot.replyUsers.has(uid)) {
-	        bot.replyUsers.delete(uid);
-	        console.log('删除自动回复用户', uid);
-	      } else {
-	        bot.replyUsers.add(uid);
-	        console.log('增加自动回复用户', uid);
+	      if (!bot.members[uid]) {
+	        console.log('用户不存在');
+	        return;
 	      }
-	    },
-	    switchSupervise: function switchSupervise(uid) {
-	      var bot = this.bgp.getBot();
-	      if (bot.superviseUsers.has(uid)) {
-	        bot.superviseUsers.delete(uid);
-	        console.log('删除监督用户', uid);
-	      } else {
-	        bot.superviseUsers.add(uid);
-	        console.log('增加监督用户', uid);
-	      }
+	      var reply = false;
+	      var supervise = false;
+	      val.forEach(function (v) {
+	        if (v == 'reply') reply = true;else if (v == 'supervise') supervise = true;
+	      });
+	      bot.members[uid].reply = reply;
+	      bot.members[uid].supervise = supervise;
+	      console.log('uid: ' + uid + ', reply: ' + reply + ', supervise: ' + supervise);
 	    },
 	    initList: function initList() {
 	      var _this3 = this;
 
-	      $(this.$els.list).find('input').bootstrapSwitch();
-	      $(this.$els.list).find('input').on('switchChange.bootstrapSwitch', function (event) {
+	      $(this.$els.list).find('select').selected({
+	        btnWidth: '100px',
+	        //btnStyle: 'primary',
+	        //maxHeight: '100px',
+	        btnSize: 'sm'
+	      });
+	      $(this.$els.list).find('select').on('change', function (event) {
+	        var val = $(event.target).val();
 	        var uid = $(event.target).attr('uid');
-	        _this3.switchSupervise(uid);
+	        _this3.switchUser(uid, val);
 	      });
 	    }
 	  },
 	  created: function created() {
 	    this.bgp = chrome.extension.getBackgroundPage();
+	    /*this.members = {
+	      a: {
+	        username: 'a',
+	        nickname: 'aa',
+	        reply: true,
+	        supervise: false
+	      }
+	    };
+	    this.page = 'list';
+	    return;*/
 	    var bot = this.bgp.getBot();
 	    if (bot.state == this.bgp.getWxState().login) {
 	      this.showMemberList();
@@ -175,7 +187,7 @@
 	    }
 	  }
 		});
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(251)))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(250)))
 
 /***/ },
 /* 1 */
@@ -6624,14 +6636,13 @@
 /* 247 */,
 /* 248 */,
 /* 249 */,
-/* 250 */,
-/* 251 */
+/* 250 */
 /***/ function(module, exports) {
 
 	module.exports = jQuery;
 
 /***/ },
-/* 252 */
+/* 251 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, process, console, jQuery) {/*!
@@ -16455,7 +16466,7 @@
 	}
 
 	module.exports = Vue;
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(3), __webpack_require__(1), __webpack_require__(251)))
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(3), __webpack_require__(1), __webpack_require__(250)))
 
 /***/ }
 /******/ ]);

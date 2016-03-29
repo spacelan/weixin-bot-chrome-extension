@@ -51,6 +51,7 @@ window.$vm = new Vue({
           });
       },
       logout() {
+        console.log('logout');
         let bot = this.bgp.getBot();
         bot.logout()
           .then(() => {
@@ -67,38 +68,52 @@ window.$vm = new Vue({
       showMemberList() {
         this.page = 'list';
         let bot = this.bgp.getBot();
-        this.members = bot.superviseUsersList;
+        this.members = bot.getUsersList();
       },
-      switchReply(uid) {
+      switchUser(uid, val) {
         let bot = this.bgp.getBot();
-        if (bot.replyUsers.has(uid)) {
-          bot.replyUsers.delete(uid);
-          console.log('删除自动回复用户', uid);
-        } else {
-          bot.replyUsers.add(uid);
-          console.log('增加自动回复用户', uid);
+        if (!bot.members[uid]) {
+          console.log('用户不存在');
+          return;
         }
-      },
-      switchSupervise(uid) {
-        let bot = this.bgp.getBot();
-        if (bot.superviseUsers.has(uid)) {
-          bot.superviseUsers.delete(uid);
-          console.log('删除监督用户', uid);
-        } else {
-          bot.superviseUsers.add(uid);
-          console.log('增加监督用户', uid);
-        }
+        let reply = false;
+        let supervise = false;
+        val.forEach(v => {
+          if (v == 'reply')
+            reply = true;
+          else if (v == 'supervise')
+            supervise = true;
+        });
+        bot.members[uid].reply = reply;
+        bot.members[uid].supervise = supervise;
+        console.log(`uid: ${uid}, reply: ${reply}, supervise: ${supervise}`);
       },
       initList() {
-        $(this.$els.list).find('input').bootstrapSwitch();
-        $(this.$els.list).find('input').on('switchChange.bootstrapSwitch', event => {
+        $(this.$els.list).find('select').selected({
+          btnWidth: '100px',
+          //btnStyle: 'primary',
+          //maxHeight: '100px',
+          btnSize: 'sm'
+        });
+        $(this.$els.list).find('select').on('change', event => {
+          let val = $(event.target).val();
           let uid = $(event.target).attr('uid');
-          this.switchSupervise(uid);
+          this.switchUser(uid, val);
         });
       }
   },
   created() {
     this.bgp = chrome.extension.getBackgroundPage();
+    /*this.members = {
+      a: {
+        username: 'a',
+        nickname: 'aa',
+        reply: true,
+        supervise: false
+      }
+    };
+    this.page = 'list';
+    return;*/
     let bot = this.bgp.getBot();
     if (bot.state == this.bgp.getWxState().login) {
       this.showMemberList();

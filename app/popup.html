@@ -24,12 +24,15 @@
           <input type="text" v-model="filerName" class="am-form-field am-radius am-input-sm" placeholder="搜索联系人">
         </div>
         <ul class="am-list" v-el:list>
-          <li v-for="member in members | filterBy filerName in 'nickname'" class="am-cf">
-            <div class="am-fl">
+          <li v-for="member in members | filterBy filerName in 'nickname'" class="am-g">
+            <div class="am-u-sm-7">
               <div v-text="member.nickname" class="am-text-truncate" style="width: 150px;"></div>
             </div>
-            <div class="am-fr">
-              <input type="checkbox" checked="{{member.switch}}" uid="{{member.username}}" data-size="xs">
+            <div class="am-u-sm-5">
+              <select uid="{{member.username}}" multiple>
+                <option value="reply" selected="{{member.reply}}">回复</option>
+                <option value="supervise" selected="{{member.supervise}}">监督</option>
+              </select>
             </div>
           </li>
         </ul>
