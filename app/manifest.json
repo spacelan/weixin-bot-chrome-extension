@@ -10,7 +10,7 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "scripts/background.js"
+      "scripts.build/background.js"
     ]
   },
   "permissions": [
@@ -21,8 +21,8 @@
   ],
   "browser_action": {
     "default_icon": {
-      "16": "images/wechat4u-16.png",
-      "32": "images/wechat4u-32.png"
+      "19": "images/wechat4u-16.png",
+      "38": "images/wechat4u-32.png"
     },
     "default_title": "wechat bot",
     "default_popup": "popup.html"

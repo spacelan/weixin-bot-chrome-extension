@@ -7,8 +7,8 @@ module.exports = {
     popup: path.resolve(__dirname, 'scripts.babel', 'popup.js')
   },
   output: {
-    path: path.resolve(__dirname, 'app', 'scripts'),
-    publicPath: '/scripts',
+    path: path.resolve(__dirname, 'app', 'scripts.build'),
+    publicPath: '/scripts.build',
     filename: '[name].js',
   },
   resolveLoader: {

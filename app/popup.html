@@ -4,9 +4,8 @@
     <meta charset="utf-8">
     <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
     <link href="styles/amazeui.min.css" rel="stylesheet">
-    <link href="styles/amazeui.switch.css" rel="stylesheet">
   </head>
-  <body style="width: 300px;height: 500px;">
+  <body style="width: 300px;height: 500px;overflow: scroll;">
     <div id="app" class="am-container am-padding-horizontal-0">
       <div v-show="page == 'scan' || page == 'confirm'" class="am-u-sm-centered">
         <h1 class="am-text-xxxl am-text-center am-margin-vertical">Wechat Bot</h1>
@@ -39,8 +38,7 @@
       </div>
     </div>
     <script src="scripts/jquery.min.js"></script>
-    <script src="scripts/popup.js"></script>
+    <script src="scripts.build/popup.js"></script>
     <script src="scripts/amazeui.min.js"></script>
-    <script src="scripts/amazeui.switch.min.js"></script>
   </body>
 </html>
