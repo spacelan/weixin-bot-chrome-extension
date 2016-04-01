@@ -4,8 +4,8 @@
   "author": "spacelan1993@gmail.com",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint app/scripts.babel/",
-    "build": "cross-env NODE_ENV=production webpack",
+    "lint": "eslint scripts.babel/",
+    "build": "npm run lint && cross-env NODE_ENV=production npm run watch",
     "watch": "webpack"
   },
   "dependencies": {

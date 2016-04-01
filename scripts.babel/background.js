@@ -1,5 +1,5 @@
 'use strict';
-import "babel-polyfill";
+import 'babel-polyfill';
 import Wechat from 'wechat4u';
 
 class WxBot extends Wechat {
@@ -9,10 +9,17 @@ class WxBot extends Wechat {
     this.on('login', () => {
       setTimeout(() => {
         this.openTimes = 0;
-        this.on('text-message', msg => this._botReply(msg));
+        this.on('text-message', msg => {
+          setTimeout(() => {
+            this._botReply(msg);
+          }, 1000);
+        });
         this.on('mobile-open', () => this._botSupervise());
       }, 1000);
     });
+    setInterval(() => {
+      this.replyFlag = false;
+    }, 2000);
   }
 
   getUsersList() {
@@ -55,7 +62,7 @@ class WxBot extends Wechat {
     }).then(res => {
       const data = res.data;
       if (data.code == 100000) {
-        return data.text + '[微信机器人]';
+        return data.text;// + '[微信机器人]';
       }
       throw new Error('tuning返回值code错误', data);
     }).catch(err => {
@@ -65,6 +72,9 @@ class WxBot extends Wechat {
   }
 
   _botReply(msg) {
+    if (this.replyFlag)
+      return;
+    this.replyFlag = true;
     if (this.members[msg['FromUserName']].reply) {
       this._tuning(msg['Content']).then((reply) => {
         this.sendMsg(reply, msg['FromUserName']);

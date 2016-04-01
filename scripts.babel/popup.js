@@ -1,5 +1,5 @@
 'use strict';
-import "babel-polyfill";
+import 'babel-polyfill';
 import Vue from 'vue';
 window.Vue = Vue;
 window.$vm = new Vue({
@@ -7,7 +7,7 @@ window.$vm = new Vue({
   data: {
     page: '',
     members: [],
-    filerName: ''
+    filterName: ''
   },
   methods: {
     login() {
@@ -127,10 +127,10 @@ window.$vm = new Vue({
         if (val == 'list') {
           setTimeout(() => {
             this.initList();
-          }, 0)
+          }, 0);
         }
       },
-      filerName(val) {
+      filterName(val) {
         console.log(val);
         this.initList();
       }

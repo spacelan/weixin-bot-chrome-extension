@@ -20,10 +20,10 @@
       <div v-show="page == 'list'" class="am-u-sm-centered">
         <div data-am-sticky>
           <button @click.prevent="logout()" class="am-btn am-radius am-btn-block am-btn-danger am-btn-sm">退出</button>
-          <input type="text" v-model="filerName" class="am-form-field am-radius am-input-sm" placeholder="搜索联系人">
+          <input type="text" v-model="filterName" class="am-form-field am-radius am-input-sm" placeholder="搜索联系人">
         </div>
         <ul class="am-list" v-el:list>
-          <li v-for="member in members | filterBy filerName in 'nickname'" class="am-g">
+          <li v-for="member in members | filterBy filterName in 'nickname'" class="am-g">
             <div class="am-u-sm-7">
               <div v-text="member.nickname" class="am-text-truncate" style="width: 150px;"></div>
             </div>

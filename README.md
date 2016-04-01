@@ -21,7 +21,7 @@ npm install
 npm run watch
 ```
 
-Chrome扩展页-开发者模式-加载已解压的扩展程序
+Chrome扩展页-开发者模式-加载已解压的扩展程序-app
 
 ## Credits
 
