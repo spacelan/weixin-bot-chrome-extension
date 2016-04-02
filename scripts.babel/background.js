@@ -34,8 +34,7 @@ class WxBot extends Wechat {
       members[member['UserName']] = {
         username: member['UserName'],
         nickname: '群聊: ' + member['NickName'],
-        reply: false,
-        supervise: false
+        options: []
       };
     });
 
@@ -43,8 +42,7 @@ class WxBot extends Wechat {
       members[member['UserName']] = {
         username: member['UserName'],
         nickname: member['RemarkName'] ? member['RemarkName'] : member['NickName'],
-        reply: false,
-        supervise: false
+        options: []
       };
     });
     this.members = members;
@@ -62,7 +60,7 @@ class WxBot extends Wechat {
     }).then(res => {
       const data = res.data;
       if (data.code == 100000) {
-        return data.text;// + '[微信机器人]';
+        return data.text; // + '[微信机器人]';
       }
       throw new Error('tuning返回值code错误', data);
     }).catch(err => {
@@ -75,9 +73,9 @@ class WxBot extends Wechat {
     if (this.replyFlag)
       return;
     this.replyFlag = true;
-    if (this.members[msg['FromUserName']].reply) {
-      this._tuning(msg['Content']).then((reply) => {
-        this.sendMsg(reply, msg['FromUserName']);
+    if (this.members[msg.FromUserName].options.indexOf('reply') > -1) {
+      this._tuning(msg.Content).then((reply) => {
+        this.sendMsg(reply, msg.FromUserName);
         console.log(reply);
       });
     }
@@ -86,8 +84,7 @@ class WxBot extends Wechat {
   _botSupervise() {
     const message = '我的主人玩微信' + ++this.openTimes + '次啦！';
     for (let username in this.members) {
-      console.log(this.members[username].supervise == true);
-      if (this.members[username].supervise == true) {
+      if (this.members[username].options.indexOf('supervise') > -1) {
         this.sendMsg(message, username);
         console.log(message);
       }

@@ -28,9 +28,9 @@
               <div v-text="member.nickname" class="am-text-truncate" style="width: 150px;"></div>
             </div>
             <div class="am-u-sm-5">
-              <select uid="{{member.username}}" multiple>
-                <option value="reply" selected="{{member.reply}}">回复</option>
-                <option value="supervise" selected="{{member.supervise}}">监督</option>
+              <select v-model="member.options" v-selected="member.options" multiple>
+                <option value="reply">回复</option>
+                <option value="supervise">监督</option>
               </select>
             </div>
           </li>
@@ -38,7 +38,7 @@
       </div>
     </div>
     <script src="scripts/jquery.min.js"></script>
-    <script src="scripts.build/popup.js"></script>
     <script src="scripts/amazeui.min.js"></script>
+    <script src="scripts.build/popup.js"></script>
   </body>
 </html>

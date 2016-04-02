@@ -2,6 +2,22 @@
 import 'babel-polyfill';
 import Vue from 'vue';
 window.Vue = Vue;
+
+Vue.directive('selected', {
+  twoWay: true,
+  bind() {
+    $(this.el).selected({
+      btnWidth: '100px',
+      //btnStyle: 'primary',
+      //maxHeight: '100px',
+      btnSize: 'sm'
+    }).change(event => {
+      let val = $(event.target).val();
+      this.set(val);
+    });
+  }
+});
+
 window.$vm = new Vue({
   el: '#app',
   data: {
@@ -69,37 +85,6 @@ window.$vm = new Vue({
         this.page = 'list';
         let bot = this.bgp.getBot();
         this.members = bot.getUsersList();
-      },
-      switchUser(uid, val) {
-        let bot = this.bgp.getBot();
-        if (!bot.members[uid]) {
-          console.log('用户不存在');
-          return;
-        }
-        let reply = false;
-        let supervise = false;
-        val.forEach(v => {
-          if (v == 'reply')
-            reply = true;
-          else if (v == 'supervise')
-            supervise = true;
-        });
-        bot.members[uid].reply = reply;
-        bot.members[uid].supervise = supervise;
-        console.log(`uid: ${uid}, reply: ${reply}, supervise: ${supervise}`);
-      },
-      initList() {
-        $(this.$els.list).find('select').selected({
-          btnWidth: '100px',
-          //btnStyle: 'primary',
-          //maxHeight: '100px',
-          btnSize: 'sm'
-        });
-        $(this.$els.list).find('select').on('change', event => {
-          let val = $(event.target).val();
-          let uid = $(event.target).attr('uid');
-          this.switchUser(uid, val);
-        });
       }
   },
   created() {
@@ -108,8 +93,7 @@ window.$vm = new Vue({
       a: {
         username: 'a',
         nickname: 'aa',
-        reply: true,
-        supervise: false
+        options: ['reply']
       }
     };
     this.page = 'list';
@@ -124,15 +108,9 @@ window.$vm = new Vue({
   watch: {
     page(val) {
         console.log(val);
-        if (val == 'list') {
-          setTimeout(() => {
-            this.initList();
-          }, 0);
-        }
       },
       filterName(val) {
         console.log(val);
-        this.initList();
       }
   }
 });
